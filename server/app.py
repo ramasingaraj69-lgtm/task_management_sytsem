@@ -14,9 +14,19 @@ load_dotenv()
 
 app = Flask(__name__)
 
+database_url = os.getenv(
+    "DATABASE_URL"
+)
+
+database_url = database_url.replace(
+    "postgresql://",
+    "postgresql+psycopg2://",
+    1
+)
+
 app.config[
     "SQLALCHEMY_DATABASE_URI"
-] = os.getenv("DATABASE_URL")
+] = database_url
 
 app.config[
     "JWT_SECRET_KEY"
